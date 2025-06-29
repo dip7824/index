@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Business Name Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .results {
+      margin-top: 20px;
+    }
+
+    .name {
+      background: #e0f7fa;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>💡 Business Name Generator</h2>
+    <p>Enter a keyword to get name ideas</p>
+    <input type="text" id="keyword" placeholder="e.g. tech, chai, shop" />
+    <br>
+    <button onclick="generateNames()">Generate</button>
+
+    <div class="results" id="results"></div>
+  </div>
+
+  <script>
+    const suffixes = ["ify", "verse", "genics", "ster", "lytics", "hub", "mart", "ology", "space", "scape", "lane", "vista"];
+
+    function generateNames() {
+      const keyword = document.getElementById('keyword').value.trim().toLowerCase();
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+
+      if (!keyword) {
+        resultsDiv.innerHTML = "<p>Please enter a keyword!</p>";
+        return;
+      }
+
+      const generated = [];
+      for (let i = 0; i < 5; i++) {
+        const suffix = suffixes[Math.floor(Math.random() * suffixes.length)];
+        const name = capitalize(keyword) + suffix;
+        generated.push(name);
+      }
+
+      generated.forEach(name => {
+        const div = document.createElement('div');
+        div.className = "name";
+        div.textContent = name;
+        resultsDiv.appendChild(div);
+      });
+    }
+
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+  </script>
+
+</body>
+</html>
